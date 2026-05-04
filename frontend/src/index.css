@@ -145,6 +145,18 @@ body {
   color: var(--red);
   font-size: .875rem;
 }
+.warning-msg {
+  margin-top: .75rem;
+  padding: .75rem 1rem;
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-radius: var(--radius);
+  color: #92400E;
+  font-size: .875rem;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
 .loading-msg {
   margin-top: .75rem;
   color: var(--gray-600);

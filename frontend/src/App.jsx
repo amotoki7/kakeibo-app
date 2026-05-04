@@ -33,10 +33,24 @@ export default function App() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(receipts));
   }, [receipts]);
 
-  // 新しいレシートを先頭に追加
+  // 新しいレシートを先頭に追加。警告メッセージの配列を返す
   const handleAdd = (receipt) => {
+    const warnings = [];
+
+    // 重複チェック: 同一日付かつ同一合計金額のレシートが既にある場合
+    const isDuplicate = receipts.some(
+      (r) => r.date === receipt.date && r.total === receipt.total
+    );
+    if (isDuplicate) {
+      warnings.push(
+        `同じ日付・合計金額のレシートが既に登録されています（${receipt.date} / ¥${receipt.total.toLocaleString()}）`
+      );
+    }
+
     setReceipts((prev) => [receipt, ...prev]);
-    setActiveTab('list');
+    // 警告がない場合のみ明細一覧タブへ移動
+    if (warnings.length === 0) setActiveTab('list');
+    return { warnings };
   };
 
   // レシート全体を削除
